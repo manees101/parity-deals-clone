@@ -15,7 +15,11 @@ const DeleteProductAlertContent = ({ id }: { id: string }) => {
   const [isDeletePending, startDeleteProductTransition] = useTransition();
   const handleDeleteProduct = async () => {
     const { error, message } = await deleteProduct({ id });
-    error ? toast.error(message) : toast.success(message);
+    if (error) {
+      toast.error(message);
+    } else {
+      toast.success(message);
+    }
   };
   return (
     <AlertDialogContent>

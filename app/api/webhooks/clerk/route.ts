@@ -1,9 +1,6 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { WebhookEvent } from "@clerk/nextjs/server";
-// import { env } from "@/data/env/server";
-import { db } from "@/drizzle/db";
-import { UserSubscriptionTable } from "@/drizzle/schema";
 import {
   createUserSubscription,
   getUserSubscription,

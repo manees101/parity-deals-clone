@@ -5,19 +5,20 @@ import { createProductView } from "@/server/db/productViews";
 import { canRemoveBranding, canShowDiscountBanner } from "@/server/permissions";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { createElement } from "react";
 
 export const runtime = "edge";
 
 export async function GET(
   request: NextRequest,
+  response: NextResponse,
   { params: { productId } }: { params: { productId: string } }
 ) {
   const headersMap = await headers();
   const requestingUrl = headersMap.get("referer") || headersMap.get("origin");
   if (requestingUrl == null) return notFound();
-  const countryCode = getCountryCode(request);
+  const countryCode = getCountryCode(); // TODO: Find a way to get the country code from the request
   if (countryCode == null) return notFound();
 
   const { product, discount, country } = await getProductForBanner({
@@ -50,7 +51,7 @@ export async function GET(
   );
 }
 
-function getCountryCode(request: NextRequest) {
+function getCountryCode() {
   // if (request.geo?.country != null) return request.geo.country -> TODO: Find a way to get the country code from the request
 
   return env.TEST_COUNTRY_CODE;

@@ -63,9 +63,11 @@ const ProductCountryDiscountsForm = ({
       unsafeData: values,
     });
     if (response?.message) {
-      response.error
-        ? toast.error(response.message)
-        : toast.success(response.message);
+      if (response.error) {
+        toast.error(response.message);
+      } else {
+        toast.success(response.message);
+      }
     }
   };
   return (

@@ -182,7 +182,7 @@ function PricingCard({
           {formatCompactNumber(maxNumberOfVisits)} pricing page visits/mo
         </CardDescription>
         <SignUpButton>
-          <Button variant={isMostPopular ? "accent" : "default"}>
+          <Button variant={isMostPopular ? "default" : "outline"}>
             Get Started
           </Button>
         </SignUpButton>

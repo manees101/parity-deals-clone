@@ -49,7 +49,11 @@ const ProductForm = ({
       : updateProduct.bind(null, product.id);
     const data = await action(values);
     if (data?.message) {
-      data.error ? toast.error(data.message) : toast.success(data.message);
+      if (data.error) {
+        toast.error(data.message);
+      } else {
+        toast.success(data.message);
+      }
     }
   };
   return (

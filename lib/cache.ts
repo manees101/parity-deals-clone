@@ -30,19 +30,18 @@ export const clearFullCache = () => {
   revalidateTag("*");
 };
 
-export const dbCache = <T extends (...args: any[]) => Promise<any>>(
-  cb: Parameters<typeof unstable_cache<T>>[0],
+export const dbCache = <TArgs extends unknown[], TReturn>(
+  cb: (...args: TArgs) => Promise<TReturn>,
   {
     tags,
   }: {
     tags: ValidTags[];
   }
 ) => {
-  return cache(
-    unstable_cache<T>(cb, undefined, {
-      tags: [...tags, "*"],
-    })
-  );
+  const wrapped = unstable_cache(cb, undefined, {
+    tags: [...tags, "*"],
+  });
+  return cache((...args: TArgs) => wrapped(...args));
 };
 
 export const revalidateDbCache = (

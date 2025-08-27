@@ -56,7 +56,11 @@ export function ProductCustomizationForm({
     );
 
     if (data?.message) {
-      data.error ? toast.error(data.message) : toast.success(data.message);
+      if (data.error) {
+        toast.error(data.message);
+      } else {
+        toast.success(data.message);
+      }
     }
   }
 
