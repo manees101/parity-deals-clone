@@ -226,8 +226,8 @@ function FooterLinkGroup({
     <div className="flex flex-col gap-4">
       <h3 className="font-semibold">{title}</h3>
       <ul className="flex flex-col gap-2 text-sm">
-        {links.map((link) => (
-          <li key={link.href}>
+        {links.map((link,index) => (
+          <li key={index}>
             <Link href={link.href}>{link.label}</Link>
           </li>
         ))}
